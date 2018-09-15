@@ -55,8 +55,9 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js && npm run watch-css",
     "build": "node scripts/build.js",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "build-css": "node-sass-chokidar src/ -o src/",
     "test": "node scripts/test.js --env=jsdom"
   },

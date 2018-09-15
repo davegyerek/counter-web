@@ -45,7 +45,9 @@ const renderCounters = counters => {
   >
     {counters.map(counter => styles =>
       <Col 
-        span={8}
+        md={8}
+        sm={12}
+        xs={24}
         key={counter.id}
         style={styles}
       >
@@ -108,6 +110,7 @@ class App extends Component {
           align="middle"
         >
           <Button 
+            size={"large"}
             type="primary" 
             onClick={() => this.setState(prevState => ({
               ...prevState,
@@ -123,52 +126,6 @@ class App extends Component {
           onTextChange={(e) => this.handleNewTextChange(e)}
           onCancel={() => this.setState(initState)}
         />
-
-{/*         
-        <Modal
-          title="Basic Modal"
-          visible={this.state.isModalVisible}
-          // onOk={this.handleOk}
-          onCancel={() => this.setState(initState)}
-          footer={[
-            <Button type="submit">Add Counter</Button>
-          ]}
-        >
-                  <Mutation mutation={CREATE_COUNTER}>
-          {(createCounter, { data }) => (
-            <div>
-              <form
-                onSubmit={e => {
-                  e.preventDefault();
-                  createCounter({ variables: { text: this.state.newText } });
-                  // input.value = "";
-                }}
-              >
-              <Row
-                type="flex" 
-                justify="space-between"
-                align="middle"
-              >
-                <Col span={11}>
-                  <Input
-                    onChange={(e) => this.handleNewTextChange(e)}
-                    value={this.state.newText}
-                  />
-                </Col>
-                <Col span={11}>
-                  <Upload>
-                    <Button>
-                      <Icon type="upload" /> Click to Upload
-                    </Button>
-                  </Upload>
-                </Col>
-              </Row>
-              </form>
-            </div>
-          )}
-        </Mutation>
-              </Modal> */}
-
       </ApolloProvider>
     );
   }

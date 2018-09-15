@@ -10,6 +10,7 @@ import {
     Upload,
     Input,
     Icon,
+    message,
 } from 'antd';
 
 import { GET_COUNTERS } from '../App.js';
@@ -32,6 +33,7 @@ function Modal(props) {
             refetchQueries: [{ query: GET_COUNTERS }]
         });
         onCancel();
+        message.success('New counter had been added!')
     }
 
     return (

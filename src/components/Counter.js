@@ -10,6 +10,7 @@ import {
     Button,
     Icon,
     Popconfirm,
+    message,
  } from 'antd';
 
 import { GET_COUNTERS } from '../App';
@@ -44,6 +45,7 @@ function Counter(props) {
             },
             refetchQueries: [{ query: GET_COUNTERS}]
         })
+        message.success('Counter had been deleted successfully!')
     }
    
     return (
