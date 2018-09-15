@@ -15,7 +15,7 @@ import { Transition } from 'react-spring';
 
 import Modal from './components/Modal';
 import Counter from './components/Counter';
-import './App.scss';
+import './App.css';
 
 const client = new ApolloClient({
   uri: "https://api-euwest.graphcms.com/v1/cjm3al9q2202u01cy0eytbw2e/master"
