@@ -1,0 +1,6 @@
+@import url(~antd/dist/antd.css);
+.card-container {
+  padding: 2rem; }
+  .card-container__item {
+    text-align: center;
+    margin: 1rem; }
