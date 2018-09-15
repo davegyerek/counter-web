@@ -42,6 +42,7 @@
     "react-dev-utils": "^5.0.2",
     "react-dom": "^16.5.1",
     "react-proptypes": "^1.0.0",
+    "react-spring": "^5.7.2",
     "resolve": "1.6.0",
     "sass-loader": "^7.1.0",
     "style-loader": "0.19.0",

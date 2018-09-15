@@ -11,9 +11,10 @@ import {
   Row,
   Col,
 } from 'antd';
-import Counter from './components/Counter';
+import { Transition } from 'react-spring';
 
 import Modal from './components/Modal';
+import Counter from './components/Counter';
 import './App.scss';
 
 const client = new ApolloClient({
@@ -33,32 +34,31 @@ export const GET_COUNTERS = gql`
   }
 `
 
-const CREATE_COUNTER = gql`
-  mutation createCounter($text: String!){
-    createCounter(data: {
-        text: $text,
-        number: 0
-      }){
-      id,
-      text
-      number
-    }
-  }
-`
-
 const renderCounters = counters => {
-  return counters.map(counter => 
-    <Col 
-      span={8}
-      key={counter.id}
-    >
-      <Counter 
-        id={counter.id}
-        text={counter.text} 
-        number={counter.number} 
-        photo={counter.photo}
-      />
-    </Col>
+  return (
+  <Transition
+    items={counters}
+    keys={counter => counter.id}
+    from={{ opacity: 0, number: 0}}
+    enter={counter => ({ opacity: 1, number: counter.number})}
+    leave={{ opacity: 0, number: 0}}
+  >
+    {counters.map(counter => styles =>
+      <Col 
+        span={8}
+        key={counter.id}
+        style={styles}
+      >
+        <Counter 
+          style={styles}
+          id={counter.id}
+          text={counter.text} 
+          number={counter.number} 
+          photo={counter.photo}
+        />
+      </Col>
+    )}
+  </Transition>
   )
 }
 
@@ -75,7 +75,6 @@ class App extends Component {
 
   handleNewTextChange(e) {
     e.persist();
-    console.log(e.target.value);
     this.setState(prevState => ({
       ...prevState,
       newText: e.target.value,
@@ -89,7 +88,6 @@ class App extends Component {
           query={GET_COUNTERS}
         >
           {({ loading, data }) => {
-            console.log(data)
             if (loading)
               return (<div>Loading...</div>)
 

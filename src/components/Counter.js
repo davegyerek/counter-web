@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'react-proptypes';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { 
+    graphql, 
+    compose, 
+} from 'react-apollo';
 import { 
     Card, 
     Button,
     Icon,
+    Popconfirm,
  } from 'antd';
+
+import { GET_COUNTERS } from '../App';
+
 const { Meta } = Card;
 
 function Counter(props) {
@@ -15,25 +22,51 @@ function Counter(props) {
         text,
         number,
         // photo,
-        mutate
+        increaseNumber,
+        deleteCounter,
+        style,
     } = props;
 
-    function onClick() {
-        mutate({ 
+    function onIncrease() {
+        increaseNumber({ 
             variables: { 
                 number: number+1,
                 id: id
-            }
+            },
+            refetchQueries: [{ query: GET_COUNTERS}]
           })
+    }
+
+    function onDelete() {
+        deleteCounter({
+            variables: {
+                id: id
+            },
+            refetchQueries: [{ query: GET_COUNTERS}]
+        })
     }
    
     return (
         <Card 
+            style={style}
+            hoverable
             className={'card-container__item'}
             actions={[
-                <Button onClick={onClick}>
-                    <Icon type="plus" theme="outlined"/>
-                </Button>
+                <Button onClick={onIncrease}>
+                    <Icon 
+                        type="plus" 
+                        theme="outlined"
+                    />
+                </Button>,
+                <Popconfirm title={'Are you sure to delete this counter?'} onConfirm={onDelete}>
+                    <Button>
+                        <Icon 
+                            type="delete" 
+                            theme="filled"
+                            style={{ color: '#FF4136' }}
+                        />
+                    </Button>
+                </Popconfirm>
             ]}
         >
             <Meta
@@ -58,9 +91,26 @@ const INCREASE_NUMBER = gql`
     }
 `
 
-const CounterWithMutation = graphql(
-    INCREASE_NUMBER
-)(Counter);
+const DELETE_COUNTER = gql`
+    mutation deleteCounter($id: ID){
+        deleteCounter(where: {
+            id: $id
+        }){
+            id
+        }
+    }
+`
+
+const CounterWithMutation = 
+compose(
+    graphql(
+    INCREASE_NUMBER,
+    { name: "increaseNumber" }
+),
+    graphql(
+    DELETE_COUNTER,
+    { name: "deleteCounter" }
+))(Counter);
 
 export default CounterWithMutation;
 
