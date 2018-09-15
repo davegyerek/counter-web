@@ -14,7 +14,7 @@ function Counter(props) {
         id,
         text,
         number,
-        photo,
+        // photo,
         mutate
     } = props;
 
@@ -26,13 +26,15 @@ function Counter(props) {
             }
           })
     }
-
-    console.log(mutate)
    
     return (
         <Card 
             className={'card-container__item'}
-            actions={[<Button onClick={onClick}/>]}
+            actions={[
+                <Button onClick={onClick}>
+                    <Icon type="plus" theme="outlined"/>
+                </Button>
+            ]}
         >
             <Meta
                 title={text}

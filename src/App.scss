@@ -1,3 +1,10 @@
-.app {
-    padding: 20;
+@import '~antd/dist/antd.css';
+
+.card-container {
+    padding: 2rem;
+
+    &__item {
+        text-align: center;
+    }    
+
 }

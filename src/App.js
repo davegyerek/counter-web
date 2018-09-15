@@ -15,9 +15,7 @@ import {
 } from 'antd';
 import Counter from './components/Counter';
 
-import './App.css';
-
-const { Meta } = Card;
+import './App.scss';
 
 const client = new ApolloClient({
   uri: "https://api-euwest.graphcms.com/v1/cjm3al9q2202u01cy0eytbw2e/master"
@@ -51,13 +49,15 @@ const CREATE_COUNTER = gql`
 
 const renderCounters = counters => {
   return counters.map(counter => 
-    <Col span={8}>
+    <Col 
+      span={8}
+      key={counter.id}
+    >
       <Counter 
         id={counter.id}
         text={counter.text} 
         number={counter.number} 
         photo={counter.photo}
-        key={counter.id}
       />
     </Col>
   )
