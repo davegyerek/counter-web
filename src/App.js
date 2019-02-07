@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import {
@@ -11,7 +11,7 @@ import {
   Row,
   Col,
 } from 'antd';
-import {Transition} from 'react-spring';
+import { Transition } from 'react-spring';
 
 import Modal from './components/Modal';
 import Counter from './components/Counter';
@@ -36,31 +36,31 @@ export const GET_COUNTERS = gql`
 
 const renderCounters = counters => {
   return (
-    <Transition
-      items={counters}
-      keys={counter => counter.id}
-      from={{opacity: 0, number: 0}}
-      enter={counter => ({opacity: 1, number: counter.number})}
-      leave={{opacity: 0, number: 0}}
-    >
-      {counters.map(counter => styles =>
-        <Col
-          md={8}
-          sm={12}
-          xs={24}
-          key={counter.id}
+  <Transition
+    items={counters}
+    keys={counter => counter.id}
+    from={{ opacity: 0, number: 0}}
+    enter={counter => ({ opacity: 1, number: counter.number})}
+    leave={{ opacity: 0, number: 0}}
+  >
+    {counters.map(counter => styles =>
+      <Col
+        md={8}
+        sm={12}
+        xs={24}
+        key={counter.id}
+        style={styles}
+      >
+        <Counter
           style={styles}
-        >
-          <Counter
-            style={styles}
-            id={counter.id}
-            text={counter.text}
-            number={counter.number}
-            photo={counter.photo}
-          />
-        </Col>
-      )}
-    </Transition>
+          id={counter.id}
+          text={counter.text}
+          number={counter.number}
+          photo={counter.photo}
+        />
+      </Col>
+    )}
+  </Transition>
   )
 }
 
@@ -89,7 +89,7 @@ class App extends Component {
         <Query
           query={GET_COUNTERS}
         >
-          {({loading, data}) => {
+          {({ loading, data }) => {
             if (loading)
               return (<div>Loading...</div>)
 
@@ -102,7 +102,7 @@ class App extends Component {
             )
 
           }
-          }
+        }
         </Query>
         <Row
           type="flex"
@@ -118,7 +118,7 @@ class App extends Component {
             }))
             }
           >
-            Add new Counter <Icon type="smile" theme="outlined"/>
+                  Add new Counter <Icon type="smile" theme="outlined" />
           </Button>
         </Row>
         <Modal
