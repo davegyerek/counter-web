@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
-import { 
+import {
   ApolloProvider,
   Query,
 } from 'react-apollo';
-import { 
+import {
   Button,
   Icon,
   Row,
   Col,
 } from 'antd';
-import { Transition } from 'react-spring';
+import {Transition} from 'react-spring';
 
 import Modal from './components/Modal';
 import Counter from './components/Counter';
@@ -36,31 +36,31 @@ export const GET_COUNTERS = gql`
 
 const renderCounters = counters => {
   return (
-  <Transition
-    items={counters}
-    keys={counter => counter.id}
-    from={{ opacity: 0, number: 0}}
-    enter={counter => ({ opacity: 1, number: counter.number})}
-    leave={{ opacity: 0, number: 0}}
-  >
-    {counters.map(counter => styles =>
-      <Col 
-        md={8}
-        sm={12}
-        xs={24}
-        key={counter.id}
-        style={styles}
-      >
-        <Counter 
+    <Transition
+      items={counters}
+      keys={counter => counter.id}
+      from={{opacity: 0, number: 0}}
+      enter={counter => ({opacity: 1, number: counter.number})}
+      leave={{opacity: 0, number: 0}}
+    >
+      {counters.map(counter => styles =>
+        <Col
+          md={8}
+          sm={12}
+          xs={24}
+          key={counter.id}
           style={styles}
-          id={counter.id}
-          text={counter.text} 
-          number={counter.number} 
-          photo={counter.photo}
-        />
-      </Col>
-    )}
-  </Transition>
+        >
+          <Counter
+            style={styles}
+            id={counter.id}
+            text={counter.text}
+            number={counter.number}
+            photo={counter.photo}
+          />
+        </Col>
+      )}
+    </Transition>
   )
 }
 
@@ -89,7 +89,7 @@ class App extends Component {
         <Query
           query={GET_COUNTERS}
         >
-          {({ loading, data }) => {
+          {({loading, data}) => {
             if (loading)
               return (<div>Loading...</div>)
 
@@ -100,27 +100,28 @@ class App extends Component {
                 </Row>
               </div>
             )
-            
+
           }
-        }
+          }
         </Query>
-        <Row 
-          type="flex" 
+        <Row
+          type="flex"
           justify="space-around"
           align="middle"
         >
-          <Button 
+          <Button
             size={"large"}
-            type="primary" 
+            type="primary"
             onClick={() => this.setState(prevState => ({
               ...prevState,
               isModalVisible: true
-            }))}
+            }))
+            }
           >
-                  Add new Counter <Icon type="smile" theme="outlined" />
+            Add new Counter <Icon type="smile" theme="outlined"/>
           </Button>
         </Row>
-        <Modal 
+        <Modal
           newText={this.state.newText}
           isModalVisible={this.state.isModalVisible}
           onTextChange={(e) => this.handleNewTextChange(e)}
